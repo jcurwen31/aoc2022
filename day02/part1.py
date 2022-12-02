@@ -33,10 +33,10 @@ def result_round(p1, p2):
     choices =["A", "B", "C"]
     if p1 == p2:
         return "D"
-    if p2 > p1:
+    if p1 == choices[choices.index(p2)-1]:
         result = "W"
-        if p1 == choices[0] and p2 == choices[-1]:
-            result = "L"
+        # if p1 == choices[0] and p2 == choices[-1]:
+        #     result = "L"
         return result
     return "L"
 
@@ -58,8 +58,11 @@ INPUT_S = '''\
 A Y
 B X
 C Z
+A Y
+B X
+C Z
 '''
-EXPECTED = 15
+EXPECTED = 30
 
 
 @pytest.mark.parametrize(
