@@ -15,15 +15,14 @@ stacks = dict()
 def execute_command(quantity, s1, s2):
     temp_stack = deque()
     for _ in range(quantity):
-        
         temp_stack.append(stacks[s1].pop())
     for _ in range(quantity):
-        # stacks[s2].append(stacks[s1].pop())
         stacks[s2].append(temp_stack.pop())
 
 def compute(s: str) -> int:
     stacks2 = []
     commands = []
+    # laoding data
     data = s.splitlines()
     for l in data:
         if '[' in l:
@@ -31,22 +30,23 @@ def compute(s: str) -> int:
         if 'move' in l:
             commands.append(l)
 
+    # initialization
     for s in stacks2:
         x = 0
         for i, c in enumerate(s[1:]):
             if i % 4 == 0:
                 x = x+1
-                # print(x)
                 stacks[x] = stacks.get(x, '') + c
     
-            
     for i,v in stacks.items():
         stacks[i] = deque(v.replace(" ", "")[::-1])
 
+    # executing moves
     for c in commands:
         x = [int(y) for y in re.findall('[0-9]+', c)]
         execute_command(*x)
-
+        
+    # collect top of stacks
     response = ""
     for k, v in stacks.items():
         response = response + v.pop() 
