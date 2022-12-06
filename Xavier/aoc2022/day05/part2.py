@@ -20,18 +20,18 @@ def execute_command(quantity, s1, s2):
         stacks[s2].append(temp_stack.pop())
 
 def compute(s: str) -> int:
-    stacks2 = []
+    stacks_lines = []
     commands = []
     # laoding data
     data = s.splitlines()
     for l in data:
         if '[' in l:
-            stacks2.append(l)
+            stacks_lines.append(l)
         if 'move' in l:
             commands.append(l)
 
     # initialization
-    for s in stacks2:
+    for s in stacks_lines:
         x = 0
         for i, c in enumerate(s[1:]):
             if i % 4 == 0:
@@ -45,7 +45,7 @@ def compute(s: str) -> int:
     for c in commands:
         x = [int(y) for y in re.findall('[0-9]+', c)]
         execute_command(*x)
-        
+
     # collect top of stacks
     response = ""
     for k, v in stacks.items():
